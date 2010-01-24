@@ -53,8 +53,20 @@ class template
 	{
 		global $phpbb_root_path, $user;
 
+		if(file_exists($phpbb_root_path . 'styles/' . $user->theme['template_path'] . '/template/smarty'))
+		{
+			global $template, $phpEx;
+			require($phpbb_root_path . 'includes/template_smarty.' . $phpEx);
+			
+			$template = new TemplateSmarty();
+			$template->set_template();
+			
+			return;
+		}
+
 		if (file_exists($phpbb_root_path . 'styles/' . $user->theme['template_path'] . '/template'))
 		{
+		
 			$this->root = $phpbb_root_path . 'styles/' . $user->theme['template_path'] . '/template';
 			$this->cachepath = $phpbb_root_path . 'cache/tpl_' . str_replace('_', '-', $user->theme['template_path']) . '_';
 
@@ -93,6 +105,17 @@ class template
 	function set_custom_template($template_path, $template_name, $template_mode = 'template')
 	{
 		global $phpbb_root_path, $user;
+
+		if(file_exists($template_path . '/template/smarty'))
+		{
+			global $template, $phpEx;
+			require($phpbb_root_path . 'includes/template_smarty.' . $phpEx);
+			
+			$template = new TemplateSmarty();
+			$template->set_custom_template($template_path, $template_name, $template_mode);
+			
+			return;
+		}
 
 		// Make sure $template_path has no ending slash
 		if (substr($template_path, -1) == '/')

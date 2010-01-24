@@ -1,0 +1,48 @@
+	</div>
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<ul class="linklist">
+			<li class="icon-home"><a href="{$U_INDEX}" accesskey="h">{L INDEX}</a></li>
+				{if not $S_IS_BOT}
+					{if $S_WATCH_FORUM_LINK}<li {if $S_WATCHING_FORUM}class="icon-unsubscribe"{else}class="icon-subscribe"{/if}><a href="{$S_WATCH_FORUM_LINK}" title="{$S_WATCH_FORUM_TITLE}">{$S_WATCH_FORUM_TITLE}</a></li>{/if}
+					{if $U_WATCH_TOPIC}<li {if $S_WATCHING_TOPIC}class="icon-unsubscribe"{else}class="icon-subscribe"{/if}><a href="{$U_WATCH_TOPIC}" title="{L WATCH_TOPIC}">{L WATCH_TOPIC}</a></li>{/if}
+					{if $U_BOOKMARK_TOPIC}<li class="icon-bookmark"><a href="{$U_BOOKMARK_TOPIC}" title="{L BOOKMARK_TOPIC}">{L BOOKMARK_TOPIC}</a></li>{/if}
+					{if $U_BUMP_TOPIC}<li class="icon-bump"><a href="{$U_BUMP_TOPIC}" title="{L BUMP_TOPIC}">{L BUMP_TOPIC}</a></li>{/if}
+				{/if}
+			<li class="rightside">{if $U_TEAM}<a href="{$U_TEAM}">{L THE_TEAM}</a> &bull; {/if}{if not $S_IS_BOT}<a href="{$U_DELETE_COOKIES}">{L DELETE_COOKIES}</a> &bull; {/if}{$S_TIMEZONE}</li>
+		</ul>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+<!--
+	We request you retain the full copyright notice below including the link to www.phpbb.com.
+	This not only gives respect to the large amount of time given freely by the developers
+	but also helps build interest, traffic and use of phpBB3. If you (honestly) cannot retain
+	the full copyright we ask you at least leave in place the "Powered by phpBB" line, with
+	"phpBB" linked to www.phpbb.com. If you refuse to include even this then support on our
+	forums may be affected.
+
+	The phpBB Group : 2006
+//-->
+
+	<div class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a> &copy; 2000, 2002, 2005, 2007 phpBB Group
+		{if $TRANSLATION_INFO}<br />{$TRANSLATION_INFO}{/if}
+		{if $DEBUG_OUTPUT}<br />{$DEBUG_OUTPUT}{/if}
+		{if $U_ACP}<br /><strong><a href="{$U_ACP}">{L ACP}</a></strong>{/if}
+	</div>
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	{if not $S_IS_BOT}{$RUN_CRON_TASK}{/if}
+</div>
+
+</body>
+</html>

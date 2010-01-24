@@ -1,0 +1,47 @@
+{include file='overall_header.html'}
+
+<p class="{$S_CONTENT_FLOW_END}{if $S_USER_LOGGED_IN} rightside{/if}">{if $S_USER_LOGGED_IN}{$LAST_VISIT_DATE}{else}{$CURRENT_TIME}{/if}</p>
+{if $U_MCP}<p>{$CURRENT_TIME} <br />[&nbsp;<a href="{$U_MCP}">{L MCP}</a>&nbsp;]</p>{elseif $S_USER_LOGGED_IN}<p>{$CURRENT_TIME}</p>{/if}
+
+{if $S_DISPLAY_SEARCH or ($S_USER_LOGGED_IN and not $S_IS_BOT)}
+<ul class="linklist">
+	{if $S_DISPLAY_SEARCH}
+		<li><a href="{$U_SEARCH_UNANSWERED}">{L SEARCH_UNANSWERED}</a>{if $S_USER_LOGGED_IN} &bull; <a href="{$U_SEARCH_UNREAD}">{L SEARCH_UNREAD}</a> &bull; <a href="{$U_SEARCH_NEW}">{L SEARCH_NEW}</a>{/if} &bull; <a href="{$U_SEARCH_ACTIVE_TOPICS}">{L SEARCH_ACTIVE_TOPICS}</a></li>
+	{/if}
+	{if not $S_IS_BOT and $U_MARK_FORUMS}<li class="rightside"><a href="{$U_MARK_FORUMS}" accesskey="m">{L MARK_FORUMS_READ}</a></li>{/if}
+</ul>
+{/if}
+
+{include file='forumlist_body.html'}
+
+{if not $S_USER_LOGGED_IN and not $S_IS_BOT}
+	<form method="post" action="{$S_LOGIN_ACTION}" class="headerspace">
+	<h3><a href="{$U_LOGIN_LOGOUT}">{L LOGIN_LOGOUT}</a>{if $S_REGISTER_ENABLED}&nbsp; &bull; &nbsp;<a href="{$U_REGISTER}">{L REGISTER}</a>{/if}</h3>
+		<fieldset class="quick-login">
+			<label for="username">{L USERNAME}:</label>&nbsp;<input type="text" name="username" id="username" size="10" class="inputbox" title="{L USERNAME}" />
+			<label for="password">{L PASSWORD}:</label>&nbsp;<input type="password" name="password" id="password" size="10" class="inputbox" title="{L PASSWORD}" />
+			{if $S_AUTOLOGIN_ENABLED}
+				| <label for="autologin">{L LOG_ME_IN} <input type="checkbox" name="autologin" id="autologin" /></label>
+			{/if}
+			<input type="submit" name="login" value="{L LOGIN}" class="button2" />
+		</fieldset>
+	</form>
+{/if}
+
+{if $S_DISPLAY_ONLINE_LIST}
+	{if $U_VIEWONLINE}<h3><a href="{$U_VIEWONLINE}">{L WHO_IS_ONLINE}</a></h3>{else}<h3>{L WHO_IS_ONLINE}</h3>{/if}
+	<p>{$TOTAL_USERS_ONLINE} ({L ONLINE_EXPLAIN})<br />{$RECORD_USERS}<br /> <br />{$LOGGED_IN_USER_LIST}
+	{if $LEGEND}<br /><em>{L LEGEND}: {$LEGEND}</em>{/if}</p>
+{/if}
+
+{if $S_DISPLAY_BIRTHDAY_LIST and $BIRTHDAY_LIST}
+	<h3>{L BIRTHDAYS}</h3>
+	<p>{if $BIRTHDAY_LIST}{L CONGRATULATIONS}: <strong>{$BIRTHDAY_LIST}</strong>{else}{L NO_BIRTHDAYS}{/if}</p>
+{/if}
+
+{if $NEWEST_USER}
+	<h3>{L STATISTICS}</h3>
+	<p>{$TOTAL_POSTS} &bull; {$TOTAL_TOPICS} &bull; {$TOTAL_USERS} &bull; {$NEWEST_USER}</p>
+{/if}
+
+{include file='overall_footer.html'}

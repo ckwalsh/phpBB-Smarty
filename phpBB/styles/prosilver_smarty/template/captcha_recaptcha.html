@@ -1,0 +1,49 @@
+{if $S_TYPE == 1}
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<h3>{L CONFIRMATION}</h3>
+	<p>{L CONFIRM_EXPLAIN}</p>
+
+	<fieldset class="fields2">
+{/if}
+
+{if $S_RECAPTCHA_AVAILABLE}
+	<dl>
+	<dt><label>{L CONFIRM_CODE}</label>:<br /><span>{L RECAPTCHA_EXPLAIN}</span></dt>
+	<dd>
+		<script type="text/javascript">
+		// <![CDATA[
+		var RecaptchaOptions = {literal}{{/literal}
+			lang : '{$LA_RECAPTCHA_LANG}',
+			tabindex : {if $CAPTCHA_TAB_INDEX}{$CAPTCHA_TAB_INDEX}{else}10{/if}
+		};
+		// ]]>
+		</script>
+		<script type="text/javascript" src="{$RECAPTCHA_SERVER}/challenge?k={$RECAPTCHA_PUBKEY}{$RECAPTCHA_ERRORGET}"></script>
+		<script type="text/javascript">
+		// <![CDATA[
+		{if $S_CONTENT_DIRECTION eq 'rtl'}
+			document.getElementById('recaptcha_table').style.direction = 'ltr';
+		{/if}
+		// ]]>
+		</script>
+		<noscript>
+		<div>
+			<object data="{$RECAPTCHA_SERVER}/noscript?k={$RECAPTCHA_PUBKEY}{$RECAPTCHA_ERRORGET}" type="text/html" height="300" width="500"></object><br />
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field" value="manual_challenge" />
+		</div>
+		</noscript>
+
+	</dd>
+	</dl>
+{else}
+{L RECAPTCHA_NOT_AVAILABLE}
+{/if}
+
+{if $S_TYPE == 1}
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+{/if}

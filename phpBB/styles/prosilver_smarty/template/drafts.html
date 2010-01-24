@@ -1,0 +1,44 @@
+
+
+{if $draftrow}
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<h3>{L LOAD_DRAFT}</h3>
+	<p>{L LOAD_DRAFT_EXPLAIN}</p>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<div class="{if $not S_PRIVMSGS}forumbg{else}panel{/if}">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+	<ul class="topiclist">
+		<li class="header">
+			<dl>
+				<dt>{L LOAD_DRAFT}</dt>
+				<dd class="posted">{L SAVE_DATE}</dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="topiclist{if not $S_PRIVMSGS} topics{else} cplist{/if}">
+
+	{foreach from=$draftrow item='_draftrow'}
+	<li class="row{if $_draftrow.S_ROW_COUNT is even} bg1{else} bg2{/if}">
+		<dl>
+			<dt>
+				<a href="{$_draftrow.U_INSERT}" title="{L LOAD_DRAFT}" class="topictitle">{$_draftrow.DRAFT_SUBJECT}</a><br />
+				{if not $S_PRIVMSGS}{if $_draftrow.S_LINK_TOPIC}{L TOPIC}: <a href="{$_draftrow.U_VIEW}">{$_draftrow.TITLE}</a>
+				{elseif $_draftrow.S_LINK_FORUM}{L FORUM}: <a href="{$_draftrow.U_VIEW}">{$_draftrow.TITLE}</a>
+				{else}{L NO_TOPIC_FORUM}{/if}{/if}
+			</dt>
+			<dd class="posted">{$_draftrow.DATE}</dd>
+		</dl>
+	</li>
+	{/foreach}
+
+	</ul>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+{/if}

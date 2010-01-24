@@ -1,0 +1,52 @@
+{$include file='overall_header.html'}
+
+<h2>{L FAQ_TITLE}</h2>
+
+
+<div class="panel bg1" id="faqlinks">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="column1">
+		{foreach from=$faq_block item='_faq_block'}
+			{if $_faq_block.SWITCH_COLUMN or ($SWITCH_COLUMN_MANUALLY and $_faq_block.S_ROW_COUNT == 4) -->
+				</div>
+
+				<div class="column2">
+			{/if}
+
+			<dl class="faq">
+				<dt><strong>{$_faq_block.BLOCK_TITLE}</strong></dt>
+				{foreach from=$_faq_block.faq_row item='_faq_row'}
+					<dd><a href="#f{$_faq_block.S_ROW_COUNT}r{$_faq_row.S_ROW_COUNT}">{$_faq_row.FAQ_QUESTION}</a></dd>
+				{/foreach}
+			</dl>
+		{/foreach}
+		</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+
+
+<div class="clear"></div>
+
+{foreach from=$faq_block item='_faq_block'}
+	<div class="panel {if $_faq_block.S_ROW_COUNT is odd -->bg1{else}bg2{/if}">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="content">
+			<h2>{$_faq_block.BLOCK_TITLE}</h2>
+			{foreach from=$_faq_block.faq_row item='_faq_row'}
+				<dl class="faq">
+					<dt id="f{$_faq_block.S_ROW_COUNT}r{$_faq_row.S_ROW_COUNT}"><strong>{$_faq_row.FAQ_QUESTION}</strong></dt>
+					<dd>{$_faq_row.FAQ_ANSWER}</dd>
+					<dd><a href="#faqlinks" class="top2">{L BACK_TO_TOP}</a></dd>
+				</dl>
+				{if not $_faq_row.S_LAST_ROW --><hr class="dashed" />{/if}
+			{/foreach}
+		</div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+{/foreach}
+
+{include file='jumpbox.html'}
+{include file='overall_footer.html'}

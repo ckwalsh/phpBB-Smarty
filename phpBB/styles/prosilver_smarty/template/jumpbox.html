@@ -1,0 +1,33 @@
+
+{if $S_VIEWTOPIC -->
+	<p></p><p><a href="{$U_VIEW_FORUM}" class="left-box {$S_CONTENT_FLOW_BEGIN}" accesskey="r">{L RETURN_TO} {$FORUM_NAME}</a></p>
+{elseif $S_VIEWFORUM -->
+	<p></p><p><a href="{$U_INDEX}" class="left-box {$S_CONTENT_FLOW_BEGIN}" accesskey="r">{L RETURN_TO} {$L_INDEX}</a></p>
+{elseif $SEARCH_TOPIC -->
+	<p></p><p><a class="left-box {$S_CONTENT_FLOW_BEGIN}" href="{$U_SEARCH_TOPIC}" accesskey="r">{L RETURN_TO}: {$SEARCH_TOPIC}</a></p>
+{elseif $S_SEARCH_ACTION -->
+	<p></p><p><a class="left-box {$S_CONTENT_FLOW_BEGIN}" href="{$U_SEARCH}" title="{L SEARCH_ADV}" accesskey="r">{$L_RETURN_TO_SEARCH_ADV}</a></p>
+{/if}
+
+{if $S_DISPLAY_JUMPBOX -->
+	<form method="post" id="jumpbox" action="{$S_JUMPBOX_ACTION}" onsubmit="if(document.jumpbox.f.value == -1){$return false;}">
+
+	{if $CUSTOM_FIELDSET_CLASS -->
+		<fieldset class="{$CUSTOM_FIELDSET_CLASS}">
+	{else}
+		<fieldset class="jumpbox">
+	{/if}
+			<label for="f" accesskey="j">{if $S_IN_MCP and $S_MERGE_SELECT -->{L SELECT_TOPICS_FROM}{elseif $S_IN_MCP -->{$L_MODERATE_FORUM}{else}{$L_JUMP_TO}{/if}:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){$ document.forms['jumpbox'].submit() }">
+			{foreach from=$jumpbox_forums item='_jumpbox_forums'}
+				{if $_jumpbox_forums.S_FORUM_COUNT == 1 --><option value="-1">------------------</option>{/if}
+				<option value="{$_jumpbox_forums.FORUM_ID}"{$_jumpbox_forums.SELECTED}>{foreach from=$_jumpbox_forums.level item='_level'}&nbsp; &nbsp;{/foreach}{$_jumpbox_forums.FORUM_NAME}</option>
+			{/foreach}
+			</select>
+			<input type="submit" value="{L GO}" class="button2" />
+		</fieldset>
+	</form>
+
+{else}
+	<br /><br />
+{/if}

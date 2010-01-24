@@ -1,0 +1,68 @@
+
+{foreach from=$forumrow item='forum_row'}
+	{if ($forum_row.S_IS_CAT and not $forum_row.S_FIRST_ROW) or $forum_row.S_NO_CAT }
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+	{/if}
+
+	{if $forum_row.S_IS_CAT or $forum_row.S_FIRST_ROW  or $forum_row.S_NO_CAT }
+		<div class="forabg">
+			<div class="inner"><span class="corners-top"><span></span></span>
+			<ul class="topiclist">
+				<li class="header">
+					<dl class="icon">
+						<dt>{if $forum_row.S_IS_CAT}<a href="{$forum_row.U_VIEWFORUM}">{$forum_row.FORUM_NAME}</a>{else}{L FORUM}{/if}</dt>
+						<dd class="topics">{L TOPICS}</dd>
+						<dd class="posts">{L POSTS}</dd>
+						<dd class="lastpost"><span>{L LAST_POST}</span></dd>
+					</dl>
+				</li>
+			</ul>
+			<ul class="topiclist forums">
+	{/if}
+
+	{if not $forum_row.S_IS_CAT}
+		<li class="row">
+			<dl class="icon" style="background-image: url({$forum_row.FORUM_FOLDER_IMG_SRC}); background-repeat: no-repeat;">
+				<dt title="{$forum_row.FORUM_FOLDER_IMG_ALT}">
+				{if $S_ENABLE_FEEDS and $forum_row.S_FEED_ENABLED}<!-- <a class="feed-icon-forum" title="{L FEED} - {$forum_row.FORUM_NAME}" href="{$U_FEED}?f={$forum_row.FORUM_ID}"><img src="{$T_THEME_PATH}/images/feed.gif" alt="{L FEED} - {$forum_row.FORUM_NAME}" /></a> -->{/if}
+
+					{if $forum_row.FORUM_IMAGE}<span class="forum-image">{$forum_row.FORUM_IMAGE}</span>{/if}
+					<a href="{$forum_row.U_VIEWFORUM}" class="forumtitle">{$forum_row.FORUM_NAME}</a><br />
+					{$forum_row.FORUM_DESC}
+					{if $forum_row.MODERATORS}
+						<br /><strong>{$forum_row.L_MODERATOR_STR}:</strong> {$forum_row.MODERATORS}
+					{/if}
+					{if $forum_row.SUBFORUMS and $forum_row.S_LIST_SUBFORUMS}<br /><strong>{$forum_row.L_SUBFORUM_STR}</strong> {$forum_row.SUBFORUMS}{/if}
+				</dt>
+				{if $forum_row.CLICKS}
+					<dd class="redirect"><span>{L REDIRECTS}: {$forum_row.CLICKS}</span></dd>
+				{elseif not $forum_row.S_IS_LINK}
+					<dd class="topics">{$forum_row.TOPICS} <dfn>{L TOPICS}</dfn></dd>
+					<dd class="posts">{$forum_row.POSTS} <dfn>{L POSTS}</dfn></dd>
+					<dd class="lastpost"><span>
+						{if $forum_row.U_UNAPPROVED_TOPICS}<a href="{$forum_row.U_UNAPPROVED_TOPICS}">{$UNAPPROVED_IMG}</a>{/if}
+						{if $forum_row.LAST_POST_TIME}<dfn>{L LAST_POST}</dfn> {L POST_BY_AUTHOR} {$forum_row.LAST_POSTER_FULL}
+						{if not $S_IS_BOT}<a href="{$forum_row.U_LAST_POST}">{$LAST_POST_IMG}</a> {/if}<br />{$forum_row.LAST_POST_TIME}{else}{L NO_POSTS}<br />&nbsp;{/if}</span>
+					</dd>
+				{/if}
+			</dl>
+		</li>
+	{/if}
+
+	{if $forum_row.S_LAST_ROW}
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+	{/if}
+
+{foreachelse}
+	<div class="panel">
+		<div class="inner"><span class="corners-top"><span></span></span>
+		<strong>{L NO_FORUMS}</strong>
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+{/foreach}

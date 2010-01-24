@@ -1,0 +1,30 @@
+{foreach from=$dropdown item='_dropdown'}
+<select name="{$_dropdown.FIELD_IDENT}" id="{$_dropdown.FIELD_IDENT}">
+	{foreach from=$options item='_options'}<option value="{$_options.OPTION_ID}"{$_options.SELECTED}>{$_options.VALUE}</option>{/foreach}
+{/foreach}
+
+{foreach from=$text item='_text'}
+<textarea name="{$_text.FIELD_IDENT}" id="{$_text.FIELD_IDENT}" rows="{$_text.FIELD_ROWS}" cols="{$_text.FIELD_COLS}" class="inputbox autowidth">{$_text.FIELD_VALUE}</textarea>
+{/foreach}
+
+{foreach from=$string item='_string'}
+<input type="text" class="inputbox autowidth" name="{$_string.FIELD_IDENT}" id="{$_string.FIELD_IDENT}" size="{$_string.FIELD_LENGTH}" maxlength="{$_string.FIELD_MAXLEN}" value="{$_string.FIELD_VALUE}" />
+{/foreach}
+
+{foreach from=$bool item='_bool'}
+{if $bool.FIELD_LENGTH eq 1}
+	{foreach from=$options item='_options'}<label for="{$_bool.FIELD_IDENT}_{$_options.OPTION_ID}"><input type="radio" class="radio" name="{$_bool.FIELD_IDENT}" id="{$_bool.FIELD_IDENT}_{$_options.OPTION_ID}" value="{$_options.OPTION_ID}"{$_options.CHECKED} /> {$_options.VALUE}</label>{/foreach}
+{else}
+	<input type="checkbox" class="radio" name="{$_bool.FIELD_IDENT}" id="{$_bool.FIELD_IDENT}"{if $_bool.FIELD_VALUE} checked="checked"{/if} />
+{/if}
+{/foreach}
+
+{foreach from=$int item='_int'}
+<input type="text" class="inputbox autowidth" name="{$_int.FIELD_IDENT}" id="{$_int.FIELD_IDENT}" size="{$_int.FIELD_LENGTH}" value="{$int_.FIELD_VALUE}" />
+{/foreach}
+
+{foreach from=$date item='_date'}
+<label for="{$_date.FIELD_IDENT}_day">{L DAY}: <select name="{$_date.FIELD_IDENT}_day" id="{$_date.FIELD_IDENT}_day">{$_date.S_DAY_OPTIONS}</select></label> 
+<label for="{$_date.FIELD_IDENT}_month">{L MONTH}: <select name="{$_date.FIELD_IDENT}_month" id="{$_date.FIELD_IDENT}_month">{$_date.S_MONTH_OPTIONS}</select></label> 
+<label for="{$_date.FIELD_IDENT}_year">{L YEAR}: <select name="{$_date.FIELD_IDENT}_year" id="{$_date.FIELD_IDENT}_year">{$_date.S_YEAR_OPTIONS}</select></label>
+{/foreach}
